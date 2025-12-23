@@ -1,0 +1,43 @@
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+        
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    
+    
+    - name: Train
+      run: python train.py
+
+    - name: Test
+      run: python test_train.py
+
+    - name: Upload model
+      uses: actions/upload-artifact@v4
+      with: 
+        name: Iris model
+        path : model/model.pkl
+    
+    - name: Monitor
+      run: python monitor.py
+
+    - name : Upload Drift reoprt
+      uses: action/upload-artifact@v4
+      with:
+        name : Drift_report
+        path: model/model-report.html
