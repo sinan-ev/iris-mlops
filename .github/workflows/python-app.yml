@@ -37,7 +37,7 @@ jobs:
       run: python monitor.py
 
     - name : Upload Drift reoprt
-      uses: action/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name : Drift_report
         path: model/model-report.html
